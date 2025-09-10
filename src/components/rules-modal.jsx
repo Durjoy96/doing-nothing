@@ -1,6 +1,6 @@
 import React from "react";
 
-export default function RulesModal() {
+export default function RulesModal({ setShowTimer }) {
   const fullScreenHandler = () => {
     document.getElementById("root").requestFullscreen();
   };
@@ -22,6 +22,7 @@ export default function RulesModal() {
             onClick={() => {
               fullScreenHandler();
               document.getElementById("rules_modal").close();
+              setShowTimer(true); // Start the timer when the modal is closed
             }}
             className="btn btn-lg btn-primary btn-wide rounded-full"
           >
