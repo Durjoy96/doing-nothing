@@ -5,20 +5,36 @@ import React, { createContext, useContext, useState } from "react";
 export const Context = createContext(null);
 
 export default function Provider({ children }) {
+  const [showTimer, setShowTimer] = useState(false);
   const [totalSeconds, setTotalSeconds] = useState(0);
   const [isGameOver, setIsGameOver] = useState(false);
-  const [isRulesModalClose, setIsRulesModalClose] = useState(false);
+  const [isGameStarted, setIsGameStarted] = useState(false);
   const [gameOverReason, setGameOverReason] = useState("");
 
+  const gameStartHandler = () => {
+    document.getElementById("root").requestFullscreen(); // Request fullscreen mode
+
+    setShowTimer(true); // Start the timer when the modal is closed
+    setTotalSeconds(0); // Reset timer
+    setIsGameOver(false); // Reset game over state
+    setGameOverReason(""); // Reset game over reason
+
+    setTimeout(() => {
+      setIsGameStarted(true); // Start the game
+    }, 1000); // Delay for the game end logics to be set up
+  };
+
   const value = {
+    showTimer,
     totalSeconds,
     setTotalSeconds,
     isGameOver,
     setIsGameOver,
-    isRulesModalClose,
-    setIsRulesModalClose,
+    isGameStarted,
+    setIsGameStarted,
     gameOverReason,
     setGameOverReason,
+    gameStartHandler,
   };
 
   return <Context.Provider value={value}>{children}</Context.Provider>;

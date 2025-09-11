@@ -3,21 +3,9 @@
 import { useValue } from "@/lib/provider";
 import React from "react";
 
-export default function RulesModal({ setShowTimer }) {
-  const { setIsRulesModalClose } = useValue();
+export default function RulesModal() {
+  const { gameStartHandler } = useValue();
 
-  const fullScreenHandler = () => {
-    document.getElementById("root").requestFullscreen();
-  };
-
-  const btnHandler = () => {
-    fullScreenHandler();
-    document.getElementById("rules_modal").close();
-    setShowTimer(true); // Start the timer when the modal is closed
-    setTimeout(() => {
-      setIsRulesModalClose(true);
-    }, 1000); // Delay for the game end logics to be set up
-  };
   return (
     <dialog
       data-theme="forest"
@@ -33,7 +21,10 @@ export default function RulesModal({ setShowTimer }) {
         </p>
         <div className="modal-action w-full justify-center">
           <button
-            onClick={btnHandler}
+            onClick={() => {
+              gameStartHandler();
+              document.getElementById("rules_modal").close();
+            }}
             className="btn btn-lg btn-primary btn-wide rounded-full"
           >
             I'm Ready!

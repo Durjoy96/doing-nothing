@@ -4,15 +4,12 @@ import { useValue } from "@/lib/provider";
 import React from "react";
 
 export default function GameOver() {
-  const { totalSeconds, gameOverReason } = useValue();
+  const { totalSeconds, gameOverReason, gameStartHandler } = useValue();
   const hours = Math.floor(totalSeconds / 3600) || 0;
   const minutes = Math.floor(totalSeconds / 60) || 0;
   const seconds = totalSeconds % 60 || 0;
   return (
-    <div
-      data-theme="forest"
-      className="h-screen flex flex-col items-center justify-center font-inter"
-    >
+    <div className="h-screen flex flex-col items-center justify-center font-inter">
       <span className="font-fredoka text-6xl font-semibold text-error">
         You Lost
       </span>
@@ -30,7 +27,10 @@ export default function GameOver() {
         <button className="btn btn-lg btn-primary rounded-full text-base font-medium">
           Save to Leaderboard
         </button>
-        <button className="btn btn-lg btn-error btn-soft rounded-full text-base font-medium">
+        <button
+          onClick={gameStartHandler}
+          className="btn btn-lg btn-error btn-soft rounded-full text-base font-medium"
+        >
           Try Again
         </button>
       </div>
