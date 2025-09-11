@@ -4,39 +4,66 @@ import { useValue } from "@/lib/provider";
 import RulesModal from "@/components/rules-modal";
 import Timer from "@/components/timer";
 import React, { useEffect, useState } from "react";
+import GameOver from "@/components/game-over";
 
 export default function page() {
   const [showTimer, setShowTimer] = useState(false);
-  const { isGameOver, setIsGameOver, isRulesModalClose } = useValue();
+  const {
+    isGameOver,
+    setIsGameOver,
+    isRulesModalClose,
+    gameOverReason,
+    setGameOverReason,
+  } = useValue();
 
   useEffect(() => {
     if (isRulesModalClose) {
-      window.addEventListener("mousemove", () => {
+      const handleMouseMove = () => {
+        if (gameOverReason) return;
         console.log("You moved the mouse! Game over.");
+        setGameOverReason("Mouse Moved");
         setIsGameOver(true);
-      }); // Mouse movement detection
+      };
 
-      window.addEventListener("click", () => {
-        console.log("You clicked! Game over.");
-        // setIsGameOver(true);
-      }); // Mouse click detection
+      const handleClick = () => {
+        if (gameOverReason) return;
+        console.log("You clicked the mouse! Game over.");
+        setGameOverReason("Mouse Clicked");
+        setIsGameOver(true);
+      };
 
-      window.addEventListener("keydown", (e) => {
+      const handleKeyDown = (e) => {
+        if (gameOverReason) return;
         console.log("pressed key:", e.key);
+        setGameOverReason(`Key Pressed (${e.key})`);
         setIsGameOver(true);
-      }); // Key press detection
+      };
 
-      document.addEventListener("fullscreenchange", () => {
+      const handleFullscreenChange = () => {
+        if (gameOverReason) return;
         if (!document.fullscreenElement) {
           console.log("Fullscreen exited (Esc or F11 probably used)");
+          setGameOverReason("Exited Fullscreen");
           setIsGameOver(true);
         }
-      }); // Fullscreen exit detection
+      };
+
+      window.addEventListener("fullscreenchange", handleFullscreenChange);
+      window.addEventListener("mousemove", handleMouseMove);
+      window.addEventListener("click", handleClick);
+      window.addEventListener("keydown", handleKeyDown);
+
+      // Cleanup function to remove event listeners
+      return () => {
+        window.removeEventListener("mousemove", handleMouseMove);
+        window.removeEventListener("click", handleClick);
+        window.removeEventListener("keydown", handleKeyDown);
+        window.removeEventListener("fullscreenchange", handleFullscreenChange);
+      };
     } else {
       document.getElementById("rules_modal").showModal();
-      return;
     }
-  }, [isRulesModalClose]);
+  }, [isRulesModalClose, gameOverReason]);
   return (
     <>
       {!isGameOver && (
@@ -54,11 +81,7 @@ export default function page() {
         </div>
       )}
 
-      {isGameOver && (
-        <div>
-          <h1>Game Over</h1>
-        </div>
-      )}
+      {isGameOver && <GameOver />}
 
       <RulesModal setShowTimer={setShowTimer} />
     </>

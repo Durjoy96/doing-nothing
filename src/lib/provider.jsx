@@ -8,6 +8,7 @@ export default function Provider({ children }) {
   const [totalSeconds, setTotalSeconds] = useState(0);
   const [isGameOver, setIsGameOver] = useState(false);
   const [isRulesModalClose, setIsRulesModalClose] = useState(false);
+  const [gameOverReason, setGameOverReason] = useState("");
 
   const value = {
     totalSeconds,
@@ -16,6 +17,8 @@ export default function Provider({ children }) {
     setIsGameOver,
     isRulesModalClose,
     setIsRulesModalClose,
+    gameOverReason,
+    setGameOverReason,
   };
 
   return <Context.Provider value={value}>{children}</Context.Provider>;
