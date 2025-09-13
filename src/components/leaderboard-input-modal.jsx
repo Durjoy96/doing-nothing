@@ -1,6 +1,34 @@
 import React from "react";
+import { apiFetch } from "../../utils/apiFetch";
+import { useValue } from "@/lib/provider";
 
 export default function LeaderboardInputModal() {
+  const { gameOverReason, totalSeconds } = useValue();
+  const formHandler = async (e) => {
+    e.preventDefault();
+    const name = e.target.name.value;
+    const username = e.target.username.value;
+    const websiteUrl = e.target.websiteUrl.value;
+    const data = {
+      name,
+      username,
+      websiteUrl,
+      gameOverReason,
+      totalSeconds,
+    };
+    try {
+      const result = apiFetch("api/leaderboard", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(data),
+      });
+      console.log("success", result);
+    } catch (error) {
+      console.error(error.message);
+    }
+  };
   return (
     <dialog
       data-theme="forest"
@@ -14,7 +42,7 @@ export default function LeaderboardInputModal() {
             ✕
           </button>
         </form>
-        <form>
+        <form onSubmit={formHandler}>
           <h3 className="font-bold text-xl mt-2 text-base-content">
             Want your name on the leaderboard?
           </h3>
@@ -25,8 +53,10 @@ export default function LeaderboardInputModal() {
               </legend>
               <input
                 type="text"
+                name="name"
                 className="input input-neutral w-full"
                 placeholder="eg. john"
+                required
               />
             </fieldset>
             <fieldset className="fieldset">
@@ -36,6 +66,7 @@ export default function LeaderboardInputModal() {
               </legend>
               <input
                 type="text"
+                name="username"
                 className="input input-neutral w-full"
                 placeholder="eg. @john"
                 defaultValue="@"
@@ -47,7 +78,8 @@ export default function LeaderboardInputModal() {
                 <span className="text-warning">(optional)</span>
               </legend>
               <input
-                type="link"
+                type="url"
+                name="websiteUrl"
                 className="input input-neutral w-full"
                 placeholder=""
                 defaultValue="https://"
