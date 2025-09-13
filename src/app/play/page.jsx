@@ -69,9 +69,6 @@ export default function page() {
   // Show the modal on component mount
   useEffect(() => {
     document.getElementById("rules_modal").showModal();
-    return () => {
-      document.getElementById("rules_modal").close();
-    };
   }, []);
 
   return (

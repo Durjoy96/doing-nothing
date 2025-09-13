@@ -2,6 +2,7 @@
 
 import { useValue } from "@/lib/provider";
 import React from "react";
+import LeaderboardInputModal from "./leaderboard-input-modal";
 
 export default function GameOver() {
   const { totalSeconds, gameOverReason, gameStartHandler } = useValue();
@@ -11,7 +12,7 @@ export default function GameOver() {
   return (
     <div className="h-screen flex flex-col items-center justify-center font-inter">
       <span className="font-fredoka text-6xl font-semibold text-error">
-        You Lost
+        You Lose
       </span>
       <span className="mt-2 text-base text-neutral-content">
         {gameOverReason}
@@ -24,7 +25,12 @@ export default function GameOver() {
         </span>
       </span>
       <div className="mt-8 flex gap-4">
-        <button className="btn btn-lg btn-primary rounded-full text-base font-medium">
+        <button
+          onClick={() =>
+            document.getElementById("leaderboard-input-modal").showModal()
+          }
+          className="btn btn-lg btn-primary rounded-full text-base font-medium"
+        >
           Save to Leaderboard
         </button>
         <button
@@ -34,6 +40,7 @@ export default function GameOver() {
           Try Again
         </button>
       </div>
+      <LeaderboardInputModal />
     </div>
   );
 }
