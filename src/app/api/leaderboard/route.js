@@ -1,8 +1,16 @@
 import clientPromise from "@/lib/mongodb";
 import { ObjectId } from "mongodb";
 
-export function GET() {
-  return Response.json({ success: true });
+export async function GET() {
+  try {
+    const client = await clientPromise;
+    const db = client.db();
+    const collection = db.collection("leaderboard");
+    const data = await collection.find({}).toArray();
+    return Response.json({ data, success: true, status: 200 });
+  } catch (error) {
+    return Response.json({ message: "Something went wrong", status: 400 });
+  }
 }
 
 export async function POST(req) {
