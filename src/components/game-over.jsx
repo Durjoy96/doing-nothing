@@ -3,6 +3,7 @@
 import { useValue } from "@/lib/provider";
 import React from "react";
 import LeaderboardInputModal from "./leaderboard-input-modal";
+import { RotateCcw, Trophy } from "lucide-react";
 
 export default function GameOver() {
   const { totalSeconds, gameOverReason, gameStartHandler } = useValue();
@@ -31,13 +32,13 @@ export default function GameOver() {
           }
           className="btn btn-lg btn-primary rounded-full text-base font-medium"
         >
-          Save to Leaderboard
+          <Trophy className="w-5 h-5" /> Submit to Leaderboard
         </button>
         <button
           onClick={gameStartHandler}
-          className="btn btn-lg btn-error btn-soft rounded-full text-base font-medium"
+          className="btn btn-lg btn-accent btn-soft rounded-full text-base font-medium transition-all duration-300"
         >
-          Try Again
+          <RotateCcw className="w-5 h-5" /> Try Again?
         </button>
       </div>
       <LeaderboardInputModal />

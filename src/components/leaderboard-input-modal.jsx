@@ -1,14 +1,22 @@
-import React from "react";
+import React, { useState } from "react";
 import { apiFetch } from "../../utils/apiFetch";
 import { useValue } from "@/lib/provider";
+import toast from "react-hot-toast";
+import { Check, LoaderCircle, SendHorizonal } from "lucide-react";
 
 export default function LeaderboardInputModal() {
   const { gameOverReason, totalSeconds } = useValue();
+
+  const [disableBtn, setDisableBtn] = useState(false);
+  const [submissionSuccess, setSubmissionSuccess] = useState(false);
+
   const formHandler = async (e) => {
     e.preventDefault();
-    const name = e.target.name.value;
-    const username = e.target.username.value;
-    const websiteUrl = e.target.websiteUrl.value;
+    setDisableBtn(true);
+    const form = e.target;
+    const name = form.name.value;
+    const username = form.username.value;
+    const websiteUrl = form.websiteUrl.value;
     const data = {
       name,
       username,
@@ -17,16 +25,25 @@ export default function LeaderboardInputModal() {
       totalSeconds,
     };
     try {
-      const result = apiFetch("api/leaderboard", {
+      const result = await apiFetch("api/leaderboard", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
         body: JSON.stringify(data),
       });
-      console.log("success", result);
+      console.log(result.success);
+      console.log(result);
+      if (result.success) {
+        toast.success(result.message);
+        setSubmissionSuccess(true);
+        form.reset(); //reset the form
+        //   console.log("success", result);
+      }
     } catch (error) {
-      console.error(error.message);
+      toast.error(error.message);
+      setDisableBtn(false);
+      //   console.error(error.message);
     }
   };
   return (
@@ -78,7 +95,7 @@ export default function LeaderboardInputModal() {
                 <span className="text-warning">(optional)</span>
               </legend>
               <input
-                type="url"
+                type="text"
                 name="websiteUrl"
                 className="input input-neutral w-full"
                 placeholder=""
@@ -86,8 +103,23 @@ export default function LeaderboardInputModal() {
               />
             </fieldset>
           </div>
-          <button className="btn btn-primary btn-md rounded-full w-full mt-8">
-            Submit
+          <button
+            disabled={disableBtn}
+            className="btn btn-primary btn-md rounded-full w-full mt-8 disabled:bg-accent"
+          >
+            {disableBtn ? (
+              submissionSuccess ? (
+                <>
+                  <Check className="w-4 h-4" /> Done
+                </>
+              ) : (
+                <LoaderCircle className="w-4 h-4 animate-spin" />
+              )
+            ) : (
+              <>
+                <SendHorizonal className="w-4 h-4" /> Submit
+              </>
+            )}
           </button>
         </form>
       </div>

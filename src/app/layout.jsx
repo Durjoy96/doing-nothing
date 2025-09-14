@@ -1,6 +1,7 @@
 import { Inter, Fredoka } from "next/font/google";
 import "./globals.css";
 import Provider from "@/lib/provider";
+import { Toaster } from "react-hot-toast";
 
 const inter = Inter({
   variable: "--font-inter",
@@ -20,13 +21,21 @@ export const metadata = {
 export default function RootLayout({ children }) {
   return (
     <html lang="en" data-theme="forest">
-      <Provider>
-        <body
-          className={`${inter.variable} ${fredoka.variable} antialiased min-h-screen`}
-        >
+      <body
+        className={`${inter.variable} ${fredoka.variable} antialiased min-h-screen`}
+      >
+        <Provider>
           {children}
-        </body>
-      </Provider>
+          <Toaster
+            position="top-center"
+            toastOptions={{
+              style: {
+                zIndex: 999999,
+              },
+            }}
+          />
+        </Provider>
+      </body>
     </html>
   );
 }

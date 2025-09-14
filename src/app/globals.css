@@ -6,6 +6,7 @@
   name: "forest";
   default: true;
   --color-primary-content: #ffffff;
+  --color-accent: #ffb800;
 }
 
 :root {
