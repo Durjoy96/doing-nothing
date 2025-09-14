@@ -27,16 +27,27 @@ export async function POST(req) {
     };
 
     const insertedDoc = await collection.insertOne(doc);
+
     const findInsertedDoc = await collection.findOne({
       _id: new ObjectId(insertedDoc.insertedId),
     });
 
-    console.log(findInsertedDoc);
+    const smallerCount = await collection.countDocuments({
+      totalSeconds: { $gt: findInsertedDoc.totalSeconds },
+    });
+
+    const sameBefore = await collection.countDocuments({
+      totalSeconds: findInsertedDoc.totalSeconds,
+      _id: { $lt: findInsertedDoc._id },
+    });
+
+    const position = smallerCount + sameBefore + 1;
 
     return Response.json({
       success: true,
       message: "Added to the leaderboard",
       status: 200,
+      position,
     });
   } catch (error) {
     return Response.json({ message: "Something went wrong", status: 400 });
