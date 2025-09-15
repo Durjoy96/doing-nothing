@@ -9,7 +9,7 @@ export async function GET() {
     const top10 = await collection
       .find({})
       .sort({ totalSeconds: -1 })
-      .limit(10)
+      .limit(7)
       .toArray();
     return NextResponse.json({ top10, success: true, status: 200 });
   } catch (error) {

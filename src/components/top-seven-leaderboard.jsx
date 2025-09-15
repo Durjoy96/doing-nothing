@@ -1,9 +1,9 @@
 import { Globe } from "lucide-react";
 import React from "react";
 
-export default async function TopTenLeaderboard() {
+export default async function TopSevenLeaderboard() {
   const result = await fetch(
-    `${process.env.NEXT_PUBLIC_BASE_URL}/api/leaderboard/top-ten`,
+    `${process.env.NEXT_PUBLIC_BASE_URL}/api/leaderboard/top-seven`,
     {
       cache: "no-cache",
     }

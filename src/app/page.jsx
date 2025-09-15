@@ -1,4 +1,4 @@
-import TopTenLeaderboard from "@/components/top-ten-leaderboard";
+import TopSevenLeaderboard from "@/components/top-seven-leaderboard";
 import { Play } from "lucide-react";
 import Link from "next/link";
 
@@ -19,7 +19,7 @@ export default function Home() {
             </Link>
           </div>
           <div>
-            <TopTenLeaderboard />
+            <TopSevenLeaderboard />
           </div>
         </div>
       </div>

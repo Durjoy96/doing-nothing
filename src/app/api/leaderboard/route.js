@@ -27,7 +27,7 @@ export async function POST(req) {
       username:
         username.length > 1 ? String(username).slice(0, 200).trim() : null, //default value is @ = 1
       websiteUrl:
-        websiteUrl > 8 ? String(websiteUrl).slice(0, 200).trim() : null, //default value is https:// = 8
+        websiteUrl.length > 8 ? String(websiteUrl).slice(0, 200).trim() : null, //default value is https:// = 8
       gameOverReason: String(gameOverReason).slice(0, 200).trim(),
       avatar: `https://api.dicebear.com/9.x/bottts/svg?seed=${name
         .trim()
