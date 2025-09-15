@@ -12,7 +12,13 @@ export default async function TopTenLeaderboard() {
 
   return (
     <>
-      <div>
+      <div className="relative">
+        <div className="absolute -top-1 right-0">
+          <span class="relative flex size-3">
+            <span class="absolute inline-flex h-full w-full animate-ping rounded-full bg-primary opacity-75"></span>
+            <span class="relative inline-flex size-3 rounded-full bg-primary"></span>
+          </span>
+        </div>
         <div className="overflow-x-auto rounded-box border border-base-content/5 bg-base-100">
           <table className="table">
             {/* head */}
@@ -26,7 +32,7 @@ export default async function TopTenLeaderboard() {
             </thead>
             <tbody>
               {/* row */}
-              {data.top10.map((user, idx) => (
+              {data?.top10.map((user, idx) => (
                 <tr key={user._id} className="text-center">
                   {/* rank */}
                   <th className="text-primary text-base font-bold">
@@ -45,17 +51,27 @@ export default async function TopTenLeaderboard() {
                     />
                     <div>
                       {user.username && (
-                        <a
-                          href={`https://x.com/${user.username}`}
-                          target="_blank"
-                          className="link link-hover block text-base font-medium text-base-content text-left"
+                        <span
+                          className="tooltip tooltip-top"
+                          data-tip={user.name}
                         >
-                          {user.name}
-                        </a>
+                          <a
+                            href={`https://x.com/${user.username}`}
+                            target="_blank"
+                            className="blink link-hover block text-base font-medium text-base-content text-left w-28 truncate"
+                          >
+                            {user.name}
+                          </a>
+                        </span>
                       )}
                       {user.username === null && (
-                        <span className="block text-base font-medium text-base-content text-left">
-                          {user.name}
+                        <span
+                          className="tooltip tooltip-top"
+                          data-tip={user.name}
+                        >
+                          <span className="block text-base font-medium text-base-content text-left w-28 truncate cursor-default">
+                            {user.name}
+                          </span>
                         </span>
                       )}
                       {user.websiteUrl && (
@@ -65,7 +81,14 @@ export default async function TopTenLeaderboard() {
                           className="flex items-center gap-1 link link-hover text-sm font-medium text-base-content/60 group text-left"
                         >
                           <Globe className="w-3 h-3 group-hover:animate-spin" />{" "}
-                          {`${user.websiteUrl}`.split("//")[1]}{" "}
+                          <span
+                            className="tooltip tooltip-bottom"
+                            data-tip={user.websiteUrl}
+                          >
+                            <span className="block w-28 truncate">
+                              {`${user.websiteUrl}`.split("//")[1]}
+                            </span>
+                          </span>
                         </a>
                       )}
                     </div>
