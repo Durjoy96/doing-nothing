@@ -15,7 +15,7 @@ export default function GameOver() {
       <span className="font-fredoka text-6xl font-semibold text-error">
         You Lose
       </span>
-      <span className="mt-2 text-base text-neutral-content">
+      <span className="mt-2 text-base text-base-content/80">
         {gameOverReason}
       </span>
       <span className="mt-3 text-xl font-normal text-base-content">
