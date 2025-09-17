@@ -18,8 +18,14 @@ export default function Home() {
               <Play className="w-5 h-5 fill-primary-content" /> Play Now!
             </Link>
           </div>
-          <div>
+          <div className="flex flex-col items-center gap-2">
             <TopSevenLeaderboard />
+            <Link
+              href="leaderboard"
+              className="link text-accent text-sm hover:text-accent/80"
+            >
+              View Leaderboard
+            </Link>
           </div>
         </div>
       </div>

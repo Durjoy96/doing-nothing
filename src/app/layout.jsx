@@ -2,6 +2,7 @@ import { Inter, Fredoka } from "next/font/google";
 import "./globals.css";
 import Provider from "@/lib/provider";
 import { Toaster } from "react-hot-toast";
+import NextTopLoader from "nextjs-toploader";
 
 const inter = Inter({
   variable: "--font-inter",
@@ -25,6 +26,11 @@ export default function RootLayout({ children }) {
         className={`${inter.variable} ${fredoka.variable} antialiased min-h-screen`}
       >
         <Provider>
+          <NextTopLoader
+            color="#ffb800"
+            showSpinner={false}
+            initialPosition={0.5}
+          />
           {children}
           <Toaster
             position="top-center"
