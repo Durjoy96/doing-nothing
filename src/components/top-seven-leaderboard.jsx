@@ -14,12 +14,12 @@ export default async function TopSevenLeaderboard() {
     <>
       <div className="relative">
         <div className="absolute -top-1 right-0">
-          <span class="relative flex size-3">
-            <span class="absolute inline-flex h-full w-full animate-ping rounded-full bg-primary opacity-75"></span>
-            <span class="relative inline-flex size-3 rounded-full bg-primary"></span>
+          <span className="relative flex size-3">
+            <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-primary opacity-75"></span>
+            <span className="relative inline-flex size-3 rounded-full bg-primary"></span>
           </span>
         </div>
-        <LeaderboardTable data={data.top7} />
+        <LeaderboardTable data={data.top7} leaderboardBtn={true} />
       </div>
     </>
   );

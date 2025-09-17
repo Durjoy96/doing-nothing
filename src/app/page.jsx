@@ -18,14 +18,16 @@ export default function Home() {
               <Play className="w-5 h-5 fill-primary-content" /> Play Now!
             </Link>
           </div>
-          <div className="flex flex-col items-center gap-2">
+          <div className="flex flex-col items-center gap-2 relative">
             <TopSevenLeaderboard />
-            <Link
-              href="leaderboard"
-              className="link text-accent text-sm hover:text-accent/80"
-            >
-              View Leaderboard
-            </Link>
+            <div className="absolute mx-[1px] bottom-[1px] rounded-b-2xl bg-gradient-to-b from-base-100 via-base-200 to-base-300 inset-x-0 h-12 flex justify-center items-center">
+              <Link
+                href="leaderboard"
+                className="link text-accent text-xs hover:text-accent/80"
+              >
+                See full leaderboard
+              </Link>
+            </div>
           </div>
         </div>
       </div>

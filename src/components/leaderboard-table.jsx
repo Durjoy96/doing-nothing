@@ -1,7 +1,7 @@
 import { Globe } from "lucide-react";
 import React from "react";
 
-export default function LeaderboardTable({ data }) {
+export default function LeaderboardTable({ data, leaderboardBtn }) {
   return (
     <div className="overflow-x-auto rounded-box border border-base-content/5 bg-base-100">
       <table className="table">
@@ -16,8 +16,8 @@ export default function LeaderboardTable({ data }) {
         </thead>
         <tbody>
           {/* row */}
-          {data?.map((user, idx) => (
-            <tr key={user._id} className="text-center">
+          {data?.map((player, idx) => (
+            <tr key={player._id} className="text-center">
               {/* rank */}
               <th className="text-primary text-base font-bold">
                 <span className="text-xl">{idx + 1 === 1 && "🥇"}</span>
@@ -29,42 +29,48 @@ export default function LeaderboardTable({ data }) {
               {/* image, name, x, website */}
               <td className="flex items-center gap-2">
                 <img
-                  src={user.avatar}
-                  alt={user.name}
+                  src={player.avatar}
+                  alt={player.name}
                   className="w-12 h-12 rounded-full "
                 />
                 <div className="text-left">
-                  {user.username && (
-                    <span className="tooltip tooltip-top" data-tip={user.name}>
+                  {player.username && (
+                    <span
+                      className="tooltip tooltip-top"
+                      data-tip={player.name}
+                    >
                       <a
-                        href={`https://x.com/${user.username}`}
+                        href={`https://x.com/${player.username}`}
                         target="_blank"
                         className="blink link-hover block text-base font-medium text-base-content w-28 truncate"
                       >
-                        {user.name}
+                        {player.name}
                       </a>
                     </span>
                   )}
-                  {user.username === null && (
-                    <span className="tooltip tooltip-top" data-tip={user.name}>
+                  {player.username === null && (
+                    <span
+                      className="tooltip tooltip-top"
+                      data-tip={player.name}
+                    >
                       <span className="block text-base font-medium text-base-content w-28 truncate cursor-default">
-                        {user.name}
+                        {player.name}
                       </span>
                     </span>
                   )}
-                  {user.websiteUrl && (
+                  {player.websiteUrl && (
                     <a
-                      href={user.websiteUrl}
+                      href={player.websiteUrl}
                       target="_blank"
                       className="flex items-center gap-1 link link-hover text-sm font-medium text-base-content/60 group"
                     >
                       <Globe className="w-3 h-3 group-hover:animate-spin" />{" "}
                       <span
                         className="tooltip tooltip-bottom"
-                        data-tip={user.websiteUrl}
+                        data-tip={player.websiteUrl}
                       >
                         <span className="block w-28 truncate">
-                          {`${user.websiteUrl}`.split("//")[1]}
+                          {`${player.websiteUrl}`.split("//")[1]}
                         </span>
                       </span>
                     </a>
@@ -73,21 +79,26 @@ export default function LeaderboardTable({ data }) {
               </td>
               <td className="text-base font-bold text-accent">
                 {/* hours */}
-                {Math.floor(user.totalSeconds / 3600)
-                  ? `${Math.floor(user.totalSeconds / 3600)}h`
+                {Math.floor(player.totalSeconds / 3600)
+                  ? `${Math.floor(player.totalSeconds / 3600)}h`
                   : ""}{" "}
                 {/* minutes */}
-                {Math.floor(user.totalSeconds / 60)
-                  ? `${Math.floor(user.totalSeconds / 60)}min`
+                {Math.floor(player.totalSeconds / 60)
+                  ? `${Math.floor(player.totalSeconds / 60)}min`
                   : ""}{" "}
                 {/* seconds */}
-                {Math.floor(user.totalSeconds % 60)
-                  ? `${Math.floor(user.totalSeconds % 60)}sec`
+                {Math.floor(player.totalSeconds % 60)
+                  ? `${Math.floor(player.totalSeconds % 60)}sec`
                   : ""}
               </td>
-              <td>{user.gameOverReason}</td>
+              <td>{player.gameOverReason}</td>
             </tr>
           ))}
+          {leaderboardBtn && (
+            <tr>
+              <td className="h-10"></td>
+            </tr>
+          )}
         </tbody>
       </table>
     </div>
