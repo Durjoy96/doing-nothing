@@ -14,17 +14,21 @@ export default function GameOver() {
   const minutes = Math.floor(totalSeconds / 60) || 0;
   const seconds = totalSeconds % 60 || 0;
   const [leaderboardData, setLeaderboardData] = useState([]);
+  const [loading, setLoading] = useState(true);
 
   //fetch top 7 player data
   useEffect(() => {
     if (!isGameOver) return;
     fetch("/api/leaderboard/top-seven")
       .then((res) => res.json())
-      .then((data) => setLeaderboardData(data));
+      .then((data) => {
+        setLeaderboardData(data);
+        setLoading(() => false);
+      });
   }, [isGameOver]);
 
   return (
-    <div className="min-h-screen max-w-7xl mx-auto flex flex-col items-center justify-between gap-12 font-inter pt-12">
+    <div className="min-h-screen max-w-7xl mx-auto flex flex-col items-center gap-12 font-inter pt-12">
       <div className="text-center">
         <span className="block font-fredoka text-6xl font-semibold text-error">
           You Lose
@@ -57,26 +61,36 @@ export default function GameOver() {
           </button>
         </div>
       </div>
-      <div className="mb-12 relative">
-        {/* leaderboard table */}
-        <div className="relative">
-          <div className="absolute -top-1 right-0">
-            <span className="relative flex size-3">
-              <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-primary opacity-75"></span>
-              <span className="relative inline-flex size-3 rounded-full bg-primary"></span>
-            </span>
+      {/* leaderboard loading */}
+      {loading && (
+        <span className="loading loading-spinner loading-lg text-accent"></span>
+      )}
+      {/* leaderboard */}
+      {!loading && (
+        <div className="mb-12 relative">
+          {/* leaderboard table */}
+          <div className="relative">
+            <div className="absolute -top-1 right-0">
+              <span className="relative flex size-3">
+                <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-primary opacity-75"></span>
+                <span className="relative inline-flex size-3 rounded-full bg-primary"></span>
+              </span>
+            </div>
+            <LeaderboardTable
+              data={leaderboardData.top7}
+              leaderboardBtn={true}
+            />
           </div>
-          <LeaderboardTable data={leaderboardData.top7} leaderboardBtn={true} />
+          <div className="absolute mx-[1px] bottom-[1px] rounded-b-2xl bg-gradient-to-b from-base-100 via-base-200 to-base-300 inset-x-0 h-12 flex justify-center items-center">
+            <Link
+              href="leaderboard"
+              className="link text-accent text-xs hover:text-accent/80"
+            >
+              See full leaderboard
+            </Link>
+          </div>
         </div>
-        <div className="absolute mx-[1px] bottom-[1px] rounded-b-2xl bg-gradient-to-b from-base-100 via-base-200 to-base-300 inset-x-0 h-12 flex justify-center items-center">
-          <Link
-            href="leaderboard"
-            className="link text-accent text-xs hover:text-accent/80"
-          >
-            See full leaderboard
-          </Link>
-        </div>
-      </div>
+      )}
       <LeaderboardInputModal />
     </div>
   );
