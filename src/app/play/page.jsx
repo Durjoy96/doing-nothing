@@ -73,7 +73,7 @@ export default function page() {
 
   return (
     <>
-      <div id="root" data-theme="forest" className="h-screen">
+      <div id="root" data-theme="forest" className="min-h-screen bg-base-200">
         {!isGameOver && (
           <div className="h-screen flex flex-col items-center justify-center text-inter">
             <span className="text-xl font-normal text-base-content">

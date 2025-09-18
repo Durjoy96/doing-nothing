@@ -22,7 +22,7 @@ export default async function Leaderboard() {
   return (
     <>
       <div data-theme="forest" className="min-h-screen bg-base-200 font-inter">
-        <div className="max-w-6xl mx-auto px-5 pt-12">
+        <div className="max-w-6xl mx-auto px-5 py-12">
           <div>
             <h2 className="text-4xl font-semibold font-fredoka">
               Can you beat them?
