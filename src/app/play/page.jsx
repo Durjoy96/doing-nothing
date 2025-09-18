@@ -23,6 +23,7 @@ export default function page() {
         if (gameOverReason) return; // Prevent multiple triggers
         setIsGameOver(true); // Set game over state
         setIsGameStarted(false); // Stop the game
+        document.exitFullscreen(); //exit the full screen
       };
 
       const handleMouseMove = () => {
