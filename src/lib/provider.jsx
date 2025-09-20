@@ -28,6 +28,7 @@ export default function Provider({ children }) {
 
   const value = {
     showTimer,
+    setShowTimer,
     totalSeconds,
     setTotalSeconds,
     isGameOver,

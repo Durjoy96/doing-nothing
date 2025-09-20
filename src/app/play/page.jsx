@@ -9,6 +9,7 @@ import GameOver from "@/components/game-over";
 export default function page() {
   const {
     showTimer,
+    setShowTimer,
     isGameOver,
     setIsGameOver,
     isGameStarted,
@@ -22,8 +23,19 @@ export default function page() {
       const repeatedTaskHandler = () => {
         if (gameOverReason) return; // Prevent multiple triggers
         setIsGameOver(true); // Set game over state
+        setShowTimer(false); //don't show the timer
         setIsGameStarted(false); // Stop the game
-        document.exitFullscreen(); //exit the full screen
+        setTimeout(() => {
+          document.exitFullscreen(); //exit the full screen
+        }, 100);
+      };
+
+      const handleFullscreenChange = () => {
+        if (!document.fullscreenElement) {
+          repeatedTaskHandler();
+          setGameOverReason("Exited Fullscreen");
+          console.log("Fullscreen exited (Esc or F11 probably used)");
+        }
       };
 
       const handleMouseMove = () => {
@@ -42,14 +54,6 @@ export default function page() {
         repeatedTaskHandler();
         setGameOverReason(`Key Pressed (${e.key})`);
         console.log("pressed key:", e.key);
-      };
-
-      const handleFullscreenChange = () => {
-        if (!document.fullscreenElement) {
-          repeatedTaskHandler();
-          setGameOverReason("Exited Fullscreen");
-          console.log("Fullscreen exited (Esc or F11 probably used)");
-        }
       };
 
       window.addEventListener("fullscreenchange", handleFullscreenChange);
@@ -75,16 +79,7 @@ export default function page() {
   return (
     <>
       <div id="root" data-theme="forest" className="min-h-screen bg-base-200">
-        {!isGameOver && (
-          <div className="h-screen flex flex-col items-center justify-center text-inter">
-            <span className="text-xl font-normal text-base-content">
-              You've done nothing for{" "}
-              <span className="font-semibold">
-                {showTimer ? <Timer /> : "00:00:00"}
-              </span>
-            </span>
-          </div>
-        )}
+        {showTimer && <Timer />}
 
         {isGameOver && <GameOver />}
 

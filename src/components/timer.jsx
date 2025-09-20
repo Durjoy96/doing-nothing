@@ -24,9 +24,15 @@ export default function Timer() {
   }, [totalSeconds]);
 
   return (
-    <span>
-      {hour.toString().padStart(2, "0")}:{minute.toString().padStart(2, "0")}:
-      {second.toString().padStart(2, "0")}
-    </span>
+    <div className="h-screen flex flex-col items-center justify-center text-inter">
+      <span className="text-xl font-normal text-base-content">
+        You've done nothing for{" "}
+        <span className="font-semibold">
+          {hour.toString().padStart(2, "0")}:
+          {minute.toString().padStart(2, "0")}:
+          {second.toString().padStart(2, "0")}
+        </span>
+      </span>
+    </div>
   );
 }
