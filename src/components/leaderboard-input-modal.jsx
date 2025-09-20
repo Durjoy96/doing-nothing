@@ -7,11 +7,15 @@ import Lottie from "lottie-react";
 import TrophyAnimation from "@/assets/icons/Trophy.json";
 
 export default function LeaderboardInputModal() {
-  const { gameOverReason, totalSeconds } = useValue();
+  const {
+    gameOverReason,
+    totalSeconds,
+    leaderboardPosition,
+    setLeaderboardPosition,
+  } = useValue();
 
   const [disableBtn, setDisableBtn] = useState(false);
   const [submissionSuccess, setSubmissionSuccess] = useState(false);
-  const [leaderboardPosition, setLeaderboardPosition] = useState(false);
   const lottieRef = useRef();
 
   const formHandler = async (e) => {

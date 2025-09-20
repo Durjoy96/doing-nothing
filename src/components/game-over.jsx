@@ -8,13 +8,20 @@ import LeaderboardTable from "./leaderboard-table";
 import Link from "next/link";
 
 export default function GameOver() {
-  const { totalSeconds, gameOverReason, gameStartHandler, isGameOver } =
-    useValue();
+  const {
+    totalSeconds,
+    gameOverReason,
+    gameStartHandler,
+    isGameOver,
+    leaderboardPosition,
+  } = useValue();
+
+  const [leaderboardData, setLeaderboardData] = useState([]);
+  const [loading, setLoading] = useState(true);
+
   const hours = Math.floor(totalSeconds / 3600) || 0;
   const minutes = Math.floor(totalSeconds / 60) || 0;
   const seconds = totalSeconds % 60 || 0;
-  const [leaderboardData, setLeaderboardData] = useState([]);
-  const [loading, setLoading] = useState(true);
 
   //fetch top 7 player data
   useEffect(() => {
@@ -25,7 +32,7 @@ export default function GameOver() {
         setLeaderboardData(data);
         setLoading(() => false);
       });
-  }, [isGameOver]);
+  }, [isGameOver, leaderboardPosition]);
 
   return (
     <div className="min-h-screen max-w-7xl mx-auto flex flex-col items-center gap-12 font-inter pt-12">

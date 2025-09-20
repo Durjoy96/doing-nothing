@@ -10,6 +10,7 @@ export default function Provider({ children }) {
   const [isGameOver, setIsGameOver] = useState(false);
   const [isGameStarted, setIsGameStarted] = useState(false);
   const [gameOverReason, setGameOverReason] = useState("");
+  const [leaderboardPosition, setLeaderboardPosition] = useState(0);
 
   const gameStartHandler = () => {
     document.getElementById("root").requestFullscreen(); // Request fullscreen mode
@@ -18,6 +19,7 @@ export default function Provider({ children }) {
     setTotalSeconds(0); // Reset timer
     setIsGameOver(false); // Reset game over state
     setGameOverReason(""); // Reset game over reason
+    setLeaderboardPosition(0);
 
     setTimeout(() => {
       setIsGameStarted(true); // Start the game
@@ -35,6 +37,8 @@ export default function Provider({ children }) {
     gameOverReason,
     setGameOverReason,
     gameStartHandler,
+    leaderboardPosition,
+    setLeaderboardPosition,
   };
 
   return <Context.Provider value={value}>{children}</Context.Provider>;
