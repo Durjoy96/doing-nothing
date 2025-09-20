@@ -30,7 +30,7 @@ export async function POST(req) {
       _id: new ObjectId(insertedDoc.insertedId),
     });
 
-    const smallerCount = await collection.countDocuments({
+    const biggerCount = await collection.countDocuments({
       totalSeconds: { $gt: findInsertedDoc.totalSeconds },
     });
 
@@ -39,7 +39,7 @@ export async function POST(req) {
       _id: { $lt: findInsertedDoc._id },
     });
 
-    const position = smallerCount + sameBefore + 1;
+    const position = biggerCount + sameBefore + 1;
 
     return Response.json({
       success: true,

@@ -20,10 +20,10 @@ export default function Home() {
           </div>
           <div className="flex flex-col items-center gap-2 relative">
             <TopSevenLeaderboard />
-            <div className="absolute mx-[1px] bottom-[1px] rounded-b-2xl bg-gradient-to-b from-base-100 via-base-200 to-base-300 inset-x-0 h-12 flex justify-center items-center">
+            <div className="absolute mx-[1px] bottom-[1px] rounded-b-2xl bg-gradient-to-b from-base-transparent via-base-200 to-base-300 inset-x-0 h-24 flex justify-center items-end">
               <Link
                 href="leaderboard"
-                className="link text-accent text-xs hover:text-accent/80"
+                className="block link text-accent text-xs hover:text-accent/80 pb-6"
               >
                 See full leaderboard
               </Link>

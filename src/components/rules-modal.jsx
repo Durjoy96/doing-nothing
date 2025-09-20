@@ -25,7 +25,7 @@ export default function RulesModal() {
               gameStartHandler();
               document.getElementById("rules_modal").close();
             }}
-            className="btn btn-lg btn-primary btn-wide rounded-full"
+            className="btn btn-lg btn-primary btn-wide rounded-full font-fredoka"
           >
             I'm Ready!
           </button>
