@@ -5,6 +5,7 @@ import RulesModal from "@/components/rules-modal";
 import Timer from "@/components/timer";
 import React, { useEffect } from "react";
 import GameOver from "@/components/game-over";
+import InternalServerError from "@/components/internal-server-error";
 
 export default function page() {
   const {
@@ -82,6 +83,8 @@ export default function page() {
         {showTimer && <Timer />}
 
         {isGameOver && <GameOver />}
+
+        {isGameStarted && <InternalServerError />}
 
         <RulesModal />
       </div>
