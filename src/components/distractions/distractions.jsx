@@ -5,8 +5,8 @@ import Cookie from "./cookie";
 export default function Distractions() {
   return (
     <div>
-      <Cookie showTime={5} stayTime={7} />
-      <InternalServerError showTime={20} stayTime={10} />
+      <Cookie showTime={3} stayTime={7} />
+      <InternalServerError showTime={20} stayTime={7} />
     </div>
   );
 }
