@@ -3,13 +3,14 @@
 import { useValue } from "@/lib/provider";
 import React, { useEffect, useState } from "react";
 
-export default function Timer() {
+export default function Timer({ freezedSeconds }) {
   const { totalSeconds, setTotalSeconds, isGameOver } = useValue();
   const [second, setSecond] = useState(0);
   const [minute, setMinute] = useState(0);
   const [hour, setHour] = useState(0);
 
   useEffect(() => {
+    if (freezedSeconds) return; //prevent the timer countdown
     const formateTime = () => {
       if (!isGameOver) {
         setTotalSeconds((prev) => prev + 1); // Increment total seconds by 1
@@ -28,9 +29,27 @@ export default function Timer() {
       <span className="text-xl font-normal text-base-content">
         You've done nothing for{" "}
         <span className="font-semibold">
-          {hour.toString().padStart(2, "0")}:
-          {minute.toString().padStart(2, "0")}:
-          {second.toString().padStart(2, "0")}
+          {!freezedSeconds ? (
+            <>
+              {hour.toString().padStart(2, "0")}:
+              {minute.toString().padStart(2, "0")}:
+              {second.toString().padStart(2, "0")}
+            </>
+          ) : (
+            <>
+              {Math.floor(freezedSeconds / 3600)
+                .toString()
+                .padStart(2, "0")}
+              :
+              {Math.floor((freezedSeconds % 3600) / 60)
+                .toString()
+                .padStart(2, "0")}
+              :
+              {Math.floor(freezedSeconds % 60)
+                .toString()
+                .padStart(2, "0")}
+            </>
+          )}
         </span>
       </span>
     </div>
