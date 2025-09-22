@@ -1,14 +1,21 @@
-import TopSevenLeaderboard from "@/components/top-seven-leaderboard";
+import TopSevenLeaderboardUi from "@/components/top-seven-leaderboard-ui";
 import { Play } from "lucide-react";
 import Link from "next/link";
 
-export default function Home() {
+export default async function Home() {
+  const result = await fetch(
+    `${process.env.NEXT_PUBLIC_BASE_URL}/api/leaderboard/this-month?limit=7`,
+    {
+      cache: "no-cache",
+    }
+  );
+  const data = await result.json();
   return (
     <>
       <div data-theme="forest" className="font-inter bg-base-200">
-        <div className="max-w-7xl min-h-screen mx-auto flex items-center justify-between">
-          <div className="">
-            <h1 className="font-fredoka text-base-content text-3xl lg:text-6xl font-semibold max-w-[700px] tracking-tight leading-none">
+        <div className="max-w-7xl min-h-screen mx-auto px-5 flex  flex-col lg:flex-row lg:justify-between lg:items-center gap-12 lg:gap-0 py-8">
+          <div className="text-center lg:text-left">
+            <h1 className="font-fredoka text-base-content text-4xl md:text-5xl lg:text-6xl font-semibold max-w-[700px] tracking-tight leading-none">
               The hardest game you’ll ever play… by doing nothing
             </h1>
             <Link
@@ -18,16 +25,9 @@ export default function Home() {
               <Play className="w-5 h-5 fill-primary-content" /> Play Now!
             </Link>
           </div>
-          <div className="flex flex-col items-center gap-2 relative">
-            <TopSevenLeaderboard />
-            <div className="absolute mx-[1px] bottom-[1px] rounded-b-2xl bg-gradient-to-b from-base-transparent via-base-200 to-base-300 inset-x-0 h-24 flex justify-center items-end">
-              <Link
-                href="leaderboard"
-                className="block link text-accent text-xs hover:text-accent/80 pb-6"
-              >
-                See full leaderboard
-              </Link>
-            </div>
+          {/* this month top 7 players leaderboard */}
+          <div>
+            <TopSevenLeaderboardUi players={data.thisMonthTopPlayers} />
           </div>
         </div>
       </div>

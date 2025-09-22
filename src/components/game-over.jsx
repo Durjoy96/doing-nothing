@@ -6,6 +6,7 @@ import LeaderboardInputModal from "./leaderboard-input-modal";
 import { RotateCcw, Trophy } from "lucide-react";
 import LeaderboardTable from "./leaderboard-table";
 import Link from "next/link";
+import TopSevenLeaderboardUi from "./top-seven-leaderboard-ui";
 
 export default function GameOver() {
   const {
@@ -35,7 +36,7 @@ export default function GameOver() {
   }, [isGameOver, leaderboardPosition]);
 
   return (
-    <div className="min-h-screen max-w-7xl mx-auto flex flex-col items-center gap-12 font-inter pt-12">
+    <div className="min-h-screen max-w-7xl mx-auto px-5 flex flex-col lg:items-center gap-12 font-inter pt-12">
       <div className="text-center">
         <span className="block font-fredoka text-6xl font-semibold text-error">
           You Lose
@@ -51,14 +52,15 @@ export default function GameOver() {
             {seconds > 0 && `${seconds} sec `}
           </span>
         </span>
-        <div className="mt-8 flex gap-4">
+        {/* buttons */}
+        <div className="mt-8 flex gap-4 flex-wrap justify-center">
           <button
             onClick={() =>
               document.getElementById("leaderboard-input-modal").showModal()
             }
             className="btn btn-lg btn-primary rounded-full text-base font-medium"
           >
-            <Trophy className="w-5 h-5" /> Submit to Leaderboard
+            <Trophy className="w-5 h-5" /> Save to Leaderboard
           </button>
           <button
             onClick={gameStartHandler}
@@ -74,28 +76,11 @@ export default function GameOver() {
       )}
       {/* leaderboard */}
       {!loading && (
-        <div className="mb-12 relative">
-          {/* leaderboard table */}
-          <div className="relative">
-            <div className="absolute -top-1 right-0">
-              <span className="relative flex size-3">
-                <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-primary opacity-75"></span>
-                <span className="relative inline-flex size-3 rounded-full bg-primary"></span>
-              </span>
-            </div>
-            <LeaderboardTable
-              data={leaderboardData.thisMonthTopPlayers}
-              leaderboardBtn={true}
-            />
-          </div>
-          <div className="absolute mx-[1px] bottom-[1px] rounded-b-2xl bg-gradient-to-b from-base-transparent via-base-200 to-base-300 inset-x-0 h-24 flex justify-center items-end">
-            <Link
-              href="leaderboard"
-              className="block link text-accent text-xs hover:text-accent/80 pb-6"
-            >
-              See full leaderboard
-            </Link>
-          </div>
+        <div className="mb-12">
+          <TopSevenLeaderboardUi
+            players={leaderboardData.thisMonthTopPlayers}
+            leaderboardBtn={true}
+          />
         </div>
       )}
       <LeaderboardInputModal />

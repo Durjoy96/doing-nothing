@@ -1,4 +1,5 @@
 import { Globe } from "lucide-react";
+import Link from "next/link";
 import React from "react";
 
 export default function LeaderboardTable({ data, leaderboardBtn }) {
@@ -94,12 +95,23 @@ export default function LeaderboardTable({ data, leaderboardBtn }) {
               <td>{player.gameOverReason}</td>
             </tr>
           ))}
-          {leaderboardBtn && (
-            <tr>
-              <td className="h-10"></td>
-            </tr>
-          )}
         </tbody>
+        {leaderboardBtn && (
+          <tfoot>
+            <tr>
+              <td className="h-12">
+                <div className="absolute mx-[1px] bottom-[1px] rounded-b-2xl bg-gradient-to-b from-base-transparent via-base-200 to-base-300 inset-x-0 h-22 flex justify-center items-end">
+                  <Link
+                    href="leaderboard"
+                    className="block link text-accent text-xs hover:text-accent/80 pb-6"
+                  >
+                    See full leaderboard
+                  </Link>
+                </div>
+              </td>
+            </tr>
+          </tfoot>
+        )}
       </table>
     </div>
   );
