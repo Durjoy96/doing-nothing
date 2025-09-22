@@ -3,7 +3,7 @@ import React from "react";
 
 export default async function Leaderboard() {
   const thisWeek = await fetch(
-    `${process.env.NEXT_PUBLIC_BASE_URL}/api/leaderboard/this-week`,
+    `${process.env.NEXT_PUBLIC_BASE_URL}/api/leaderboard/this-month`,
     {
       cache: "no-cache",
     }
@@ -18,6 +18,8 @@ export default async function Leaderboard() {
 
   const thisWeekData = await thisWeek.json();
   const allTimeData = await allTime.json();
+  const now = new Date();
+  const MonthName = now.toLocaleString("default", { month: "long" });
 
   return (
     <>
@@ -38,14 +40,14 @@ export default async function Leaderboard() {
             <div>
               {/* title */}
               <div className="flex items-center gap-3 mb-3">
-                <h3 className="text-lg font-bold">This Week</h3>
+                <h3 className="text-lg font-bold">{MonthName}</h3>
                 <span className="relative flex size-3">
                   <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-primary opacity-75"></span>
                   <span className="relative inline-flex size-3 rounded-full bg-primary"></span>
                 </span>
               </div>
               {/* table */}
-              <LeaderboardTable data={thisWeekData.thisWeekTopPlayers} />
+              <LeaderboardTable data={thisWeekData.thisMonthTopPlayers} />
             </div>
             {/* all-time */}
             <div>

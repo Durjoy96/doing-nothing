@@ -3,7 +3,7 @@ import LeaderboardTable from "./leaderboard-table";
 
 export default async function TopSevenLeaderboard() {
   const result = await fetch(
-    `${process.env.NEXT_PUBLIC_BASE_URL}/api/leaderboard/top-seven`,
+    `${process.env.NEXT_PUBLIC_BASE_URL}/api/leaderboard/this-month?limit=7`,
     {
       cache: "no-cache",
     }
@@ -19,7 +19,10 @@ export default async function TopSevenLeaderboard() {
             <span className="relative inline-flex size-3 rounded-full bg-primary"></span>
           </span>
         </div>
-        <LeaderboardTable data={data.top7} leaderboardBtn={true} />
+        <LeaderboardTable
+          data={data.thisMonthTopPlayers}
+          leaderboardBtn={true}
+        />
       </div>
     </>
   );

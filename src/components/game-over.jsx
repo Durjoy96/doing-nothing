@@ -26,7 +26,7 @@ export default function GameOver() {
   //fetch top 7 player data
   useEffect(() => {
     if (!isGameOver) return;
-    fetch("/api/leaderboard/top-seven")
+    fetch("/api/leaderboard/this-month?limit=7")
       .then((res) => res.json())
       .then((data) => {
         setLeaderboardData(data);
@@ -84,7 +84,7 @@ export default function GameOver() {
               </span>
             </div>
             <LeaderboardTable
-              data={leaderboardData.top7}
+              data={leaderboardData.thisMonthTopPlayers}
               leaderboardBtn={true}
             />
           </div>
