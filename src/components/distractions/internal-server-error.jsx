@@ -1,7 +1,7 @@
 "use client";
 
 import useDelayedVisibility from "@/lib/hooks/delayedVisibility";
-import React, { useEffect, useState } from "react";
+import React from "react";
 
 export default function InternalServerError({ showTime, stayTime }) {
   const visible = useDelayedVisibility(showTime, stayTime);

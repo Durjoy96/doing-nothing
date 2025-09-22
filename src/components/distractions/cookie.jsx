@@ -1,7 +1,6 @@
 "use client";
 
 import React from "react";
-import Timer from "../timer";
 import useDelayedVisibility from "@/lib/hooks/delayedVisibility";
 import { motion, AnimatePresence } from "motion/react";
 
@@ -11,8 +10,7 @@ export default function Cookie({ showTime, stayTime }) {
     <>
       <AnimatePresence>
         {visible && (
-          <div className="absolute top-0 bottom-0 left-0 right-0 z-50 bg-base-200 flex items-center justify-center text-base-content">
-            <Timer freezedSeconds={showTime} />
+          <div className="absolute top-0 bottom-0 left-0 right-0 z-50 bg-transparent flex items-center justify-center text-base-content">
             <motion.div
               key={visible}
               initial={{ y: 100, opacity: 0 }}
