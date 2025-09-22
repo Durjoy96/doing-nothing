@@ -2,6 +2,12 @@ import LeaderboardTable from "@/components/leaderboard-table";
 import Ping from "@/components/ping";
 import React from "react";
 
+export const metadata = {
+  title: "Leaderboard",
+  description:
+    "The hall of fame for people who mastered the art of absolutely nothing.",
+};
+
 export default async function Leaderboard() {
   const thisMonth = await fetch(
     `${process.env.NEXT_PUBLIC_BASE_URL}/api/leaderboard/this-month`,
